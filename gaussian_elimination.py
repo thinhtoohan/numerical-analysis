@@ -14,11 +14,14 @@ class hilbert_matrix:
     def gaussian_elimination(self):
         for i in range(0, self.n-1):
             pivot = self.augmented_matrix[i, i]
-            self.augmented_matrix[i+1:,i]=0
+            
             print(self.augmented_matrix)
             for j in range(i + 1, self.n):
                 multiplier = np.around(self.augmented_matrix[j, i] / pivot,4)
+                self.augmented_matrix[i+1,i]=0
+                print(f"{i}", multiplier)
                 self.multiplication_count += 1
+                print(np.around((-multiplier) * (self.augmented_matrix[i,i+1:]) + self.augmented_matrix[j,i+1:],4))
                 self.augmented_matrix[j,i+1:] = np.around((-multiplier) * (self.augmented_matrix[i,i+1:]) + self.augmented_matrix[j,i+1:],4)
                 self.multiplication_count += self.n-i
         print(self.augmented_matrix)
