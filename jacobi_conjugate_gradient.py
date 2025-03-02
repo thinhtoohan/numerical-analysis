@@ -43,10 +43,12 @@ class hilbert_matrix:
             for j in range(i):  # Iterate up to the diagonal element (exclusive)
                 self.L[i][j] = self.hilb_matrix[i][j]
         print("L")
+        self.L = -1*self.L
         print(self.L)
         for i in range(self.n - 1):  # Iterate up to the second-to-last row
             for j in range(i + 1, self.n):  # Iterate from the element after the diagonal
                 self.U[i][j] = self.hilb_matrix[i][j]
+        self.U = -1*self.U
         print("U")
         print(self.U)
         self.guess = np.zeros(self.n).reshape(self.n, 1)
@@ -56,12 +58,13 @@ class hilbert_matrix:
         self.c = inv(self.D)@self.b
         print("c")
         print(self.c)
-        for i in range(0,5):
+        for i in range(0,75):
             self.guess = (self.T@self.guess)+self.c
             print(f"guess iter {i}")
-            print(self.guess)
+            #print(self.guess)
             self.r = (self.hilb_matrix@self.guess)-self.b
             self.infinity_norm = np.around(np.linalg.norm(self.r.flatten(), np.inf),4)
+            print(self.infinity_norm)
             if(self.infinity_norm<self.epsilon):
                 print(f"Converged after  {i} iterations")
                 break
