@@ -53,6 +53,9 @@ class hilbert_matrix:
         self.T = inv(self.D)@(self.L+self.U)
         print("T")
         print(self.T)
+        eigvals = np.linalg.eigvals(self.T)
+        spectral_radius = max(abs(eigvals))
+        print(f"Spectral Radius: {spectral_radius}")
         self.c = inv(self.D)@self.b
         print("c")
         print(self.c)
@@ -67,7 +70,7 @@ class hilbert_matrix:
         print(self.guess)
         self.jm_guess = self.guess
 
-h20=hilbert_matrix(3)
+h20=hilbert_matrix(2)
 h20.conjugate_gradient_method()
 h20.jacobi_method()
 
