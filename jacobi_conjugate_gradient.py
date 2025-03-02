@@ -11,14 +11,12 @@ class hilbert_matrix:
             for j in range(0, n):
                 self.hilb_matrix[i][j] = np.around(1 / ((i + 1) + (j + 1) - 1),4)
         self.b = self.hilb_matrix@self.true_x
-        print(self.hilb_matrix)
     def conjugate_gradient_method(self):
         self.guess = np.zeros(self.n).reshape(self.n, 1)
         self.r = (self.hilb_matrix@self.guess)-self.b
         self.guess = np.zeros(self.n).reshape(self.n, 1)
         self.v=-1*(self.r)
         self.t=-1*(self.r.T@self.v)/(self.v.T@self.hilb_matrix@self.v)
-        
         for i in range(0,75):
             self.r = (self.hilb_matrix@self.guess)-self.b
             self.v=-1*(self.r)
@@ -69,9 +67,9 @@ class hilbert_matrix:
                 print(f"Converged after  {i} iterations")
                 break
         print(self.guess)
-h5=hilbert_matrix(3)
-h5.jacobi_method()
-#h20.conjugate_gradient()
+h20=hilbert_matrix(20)
+#h5.jacobi_method()
+h20.conjugate_gradient_method()
 
 
 
