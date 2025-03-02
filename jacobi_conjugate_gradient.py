@@ -9,7 +9,7 @@ class hilbert_matrix:
         self.epsilon = 1e-3
         for i in range(0, n):
             for j in range(0, n):
-                self.hilb_matrix[i][j] = np.around(1 / ((i + 1) + (j + 1) - 1),4)
+                self.hilb_matrix[i][j] = 1 / ((i + 1) + (j + 1) - 1)
         self.b = self.hilb_matrix@self.true_x
         print(self.hilb_matrix)
     def conjugate_gradient_method(self):
@@ -25,7 +25,7 @@ class hilbert_matrix:
             self.t=-1*(self.r.T@self.v)/(self.v.T@self.hilb_matrix@self.v)
             self.guess=self.guess+(self.t*self.v)
             self.r = self.hilb_matrix@self.guess-self.b
-            self.infinity_norm = np.around(np.linalg.norm(self.r.flatten(), np.inf),4)
+            self.infinity_norm = np.linalg.norm(self.r.flatten(), np.inf)
             if(self.infinity_norm<self.epsilon):
                 print(f"Converged after  {i} iterations")
                 break
@@ -55,21 +55,22 @@ class hilbert_matrix:
         self.T = inv(self.D)@(self.L+self.U)
         print("T")
         print(self.T)
+        eigvals = np.linalg.eigvals(self.T)
+        spectral_radius = max(abs(eigvals))
+        print(f"Spectral Radius: {spectral_radius}")
         self.c = inv(self.D)@self.b
         print("c")
         print(self.c)
         for i in range(0,75):
             self.guess = (self.T@self.guess)+self.c
-            print(f"guess iter {i}")
             #print(self.guess)
             self.r = (self.hilb_matrix@self.guess)-self.b
-            self.infinity_norm = np.around(np.linalg.norm(self.r.flatten(), np.inf),4)
-            print(self.infinity_norm)
+            self.infinity_norm = np.linalg.norm(self.r.flatten(), np.inf)
             if(self.infinity_norm<self.epsilon):
                 print(f"Converged after  {i} iterations")
                 break
         print(self.guess)
-h5=hilbert_matrix(3)
+h5=hilbert_matrix(20)
 h5.jacobi_method()
 #h20.conjugate_gradient()
 
