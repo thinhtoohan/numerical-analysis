@@ -58,18 +58,18 @@ class hilbert_matrix:
         print(self.c)
         for i in range(0,75):
             self.guess = (self.T@self.guess)+self.c
-            print(f"guess iter {i}")
             #print(self.guess)
             self.r = (self.hilb_matrix@self.guess)-self.b
             self.infinity_norm = np.around(np.linalg.norm(self.r.flatten(), np.inf),4)
-            print(self.infinity_norm)
             if(self.infinity_norm<self.epsilon):
                 print(f"Converged after  {i} iterations")
                 break
         print(self.guess)
-h20=hilbert_matrix(20)
-#h5.jacobi_method()
+        self.jm_guess = self.guess
+
+h20=hilbert_matrix(3)
 h20.conjugate_gradient_method()
+h20.jacobi_method()
 
 
 
