@@ -77,4 +77,3 @@ h_13.back_substitution()
 h_13.calculate_error()
 h_13.calculate_norms()
 h_13.print_multiplication_count()
-
