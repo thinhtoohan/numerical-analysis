@@ -8,7 +8,7 @@ class hilbert_matrix:
         self.multiplication_count = 0
         for i in range(0, n):
             for j in range(0, n):
-                self.hilb_matrix[i][j] = np.around(1 / ((i + 1) + (j + 1) - 1),4)
+                self.hilb_matrix[i][j] = 1 / ((i + 1) + (j + 1) - 1)
         self.augmented_matrix = np.append(self.hilb_matrix, self.hilb_matrix @ self.true_x, axis=1)
         '''
         print(self.augmented_matrix)
@@ -17,10 +17,10 @@ class hilbert_matrix:
         for i in range(0, self.n-1):
             pivot = self.augmented_matrix[i, i]
             for j in range(i + 1, self.n):
-                multiplier = np.around(self.augmented_matrix[j, i] / pivot,4)
+                multiplier = self.augmented_matrix[j, i] / pivot
                 self.augmented_matrix[j,i]=0 # items under pivots are zero without any calculation needed
                 self.multiplication_count += 1
-                self.augmented_matrix[j,i+1:] = np.around((-multiplier) * (self.augmented_matrix[i,i+1:]) + self.augmented_matrix[j,i+1:],4)
+                self.augmented_matrix[j,i+1:] = (-multiplier) * (self.augmented_matrix[i,i+1:]) + self.augmented_matrix[j,i+1:]
                 self.multiplication_count += self.n-i
         '''
         print(self.augmented_matrix)
@@ -40,7 +40,7 @@ class hilbert_matrix:
         print("Error:\n",self.error.flatten())
     def calculate_norms(self):
         self.infinity_norm = np.around(np.linalg.norm(self.error.flatten(), np.inf),4)
-        self.l2_norm = np.around(np.linalg.norm(self.error),4)  
+        self.l2_norm = np.linalg.norm(self.error) 
         print("Infinity Norm:\n",self.infinity_norm)
         print("L2 Norm:\n",self.l2_norm)
     def print_multiplication_count(self):
